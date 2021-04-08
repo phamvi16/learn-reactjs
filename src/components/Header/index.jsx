@@ -12,6 +12,7 @@ import {
 	Typography,
 	Button,
 } from '@material-ui/core';
+import { Link, NavLink, Route, Router, Switch } from 'react-router-dom'
 import './style.scss';
 Header.propTypes = {};
 
@@ -25,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		flexGrow: 1,
 	},
+	link: {
+		textDecoration: 'none',
+		color: 'white',
+		marginRight: theme.spacing(2)
+	}
 }));
 
 function Header(props) {
@@ -42,6 +48,13 @@ function Header(props) {
 					<Typography variant="h6" className={classes.title}>
 						News
 					</Typography>
+					<Typography variant="h6">
+					<Link to='/todos' className={classes.link}>Todo</Link>
+					</Typography>
+					<Typography variant="h6">
+					<Link to='/products' className={classes.link} >Products</Link>
+					</Typography>
+					
 					<Button color="inherit">Login</Button>
 				</Toolbar>
 			</AppBar>
