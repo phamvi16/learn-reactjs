@@ -5,12 +5,13 @@ import TodoFeature from './features/Todo';
 import AlbumList from './features/Album/components/AlbumList'
 import ProductFeature from './features/Product';
 import ListPage from './features/Product/pages/ListPage';
+import Header from './components/Header';
 function App() {
 
   return (
-	  <Router>
+	  <Switch>
 		<div className="App">
-			Header
+			<Header/>
 				<Route path="/todos" component={TodoFeature} />
 				<Route path="/albums" component={AlbumList}/>
 				<Route path="/products" component={ProductFeature}/> 
@@ -18,7 +19,7 @@ function App() {
 			
 			Footer
 		</div>
-		</Router>
+		</Switch>
   );
 }
 
