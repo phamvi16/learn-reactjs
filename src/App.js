@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink, Route, Router, Switch } from 'react-router-dom'
 import './App.css'
 import TodoFeature from './features/Todo'
@@ -6,7 +6,18 @@ import AlbumList from './features/Album/components/AlbumList'
 import ProductFeature from './features/Product'
 import ListPage from './features/Product/pages/ListPage'
 import Header from './components/Header'
+import productApi from './api/productApi'
 function App() {
+  useEffect(() => {
+    const fetchProducts = async() => {
+      const params = {
+        _limit: 10,
+      };
+      const productList = await productApi.getAll(params);
+      console.log(productList);
+    }
+    fetchProducts()
+  },[])
   return (
     <div>
       <Switch>
