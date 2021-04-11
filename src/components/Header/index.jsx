@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Box,
@@ -11,9 +11,15 @@ import {
 	MenuIcon,
 	Typography,
 	Button,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
 } from '@material-ui/core';
-import { Link, NavLink, Route, Router, Switch } from 'react-router-dom'
+import { Link, NavLink, Route, Router, Switch } from 'react-router-dom';
 import './style.scss';
+import Register from '../../features/Auth/components/Register';
+import RegisterForm from '../../features/Auth/components/RegisterForm';
 Header.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -29,35 +35,53 @@ const useStyles = makeStyles((theme) => ({
 	link: {
 		textDecoration: 'none',
 		color: 'white',
-		marginRight: theme.spacing(2)
-	}
+		marginRight: theme.spacing(2),
+	},
 }));
 
 function Header(props) {
 	const classes = useStyles();
+	const [open, setOpen] = useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+	const handleClose = () => {
+		setOpen(false);
+	};
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton
-						edge="start"
-						className={classes.menuButton}
-						color="inherit"
-						aria-label="menu"
-					></IconButton>
 					<Typography variant="h6" className={classes.title}>
-						News
+						<NavLink to="/" className={classes.link}>
+							News
+						</NavLink>
 					</Typography>
-					<Typography variant="h6">
-					<Link to='/todos' className={classes.link}>Todo</Link>
-					</Typography>
-					<Typography variant="h6">
-					<Link to='/products' className={classes.link} >Products</Link>
-					</Typography>
-					
-					<Button color="inherit">Login</Button>
+					<Link className={classes.link} to="/todos">
+						<Button color="inherit">Todos</Button>
+					</Link>
+					<Link className={classes.link} to="/products">
+						<Button color="inherit">Products</Button>
+					</Link>
+					<Button color="inherit" onClick={handleClickOpen}>
+						Register
+					</Button>
 				</Toolbar>
 			</AppBar>
+
+			<Dialog disableBackdropClick onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+				{/* <Register /> */}
+				<DialogContent>
+					<Register />
+				</DialogContent>
+
+				<DialogActions>
+					<Button autoFocus onClick={handleClose} color="primary">
+						Cancel
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }
