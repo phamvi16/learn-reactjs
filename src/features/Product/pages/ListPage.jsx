@@ -4,6 +4,7 @@ import productApi from '../../../api/productApi';
 import ProductSkeletonList from '../components/ProductSkeletonList';
 import Product from '../components/Product';
 import ProductList from '../../Product/components/ProductList';
+import { Pagination } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -13,23 +14,43 @@ const useStyles = makeStyles((theme) => ({
 	right: {
 		flex: '1 1 0',
 	},
+	pagination: {
+		justifyContent: 'center',
+	},
 }));
 
 function ListPage(props) {
 	const classes = useStyles();
 	const [productList, setProductList] = useState([]);
+	const [pagination, setPagination] = useState({
+		limit: 9,
+		total: 10,
+		page: 1,
+	});
 	const [loading, setLoading] = useState(true);
+	const [filters, setFilters] = useState({
+		_page: 10,
+		_limit: 9,
+	});
 	useEffect(() => {
 		(async () => {
 			try {
-				const { data } = await productApi.getAll({ _page: 1, _limit: 10 });
+				const { data, pagination } = await productApi.getAll(filters);
 				setProductList(data);
+				setPagination(pagination);
+				console.log(data, pagination);
 			} catch (error) {
 				console.log('Failed to fetch product list: ', error);
 			}
 			setLoading(false);
 		})();
-	}, []);
+	}, [filters]);
+	const handlePageChange = (e, page) => {
+		setFilters((prevFilters) => ({
+			...prevFilters,
+			_page: page,
+		}));
+	};
 	return (
 		<Box>
 			<Container>
@@ -40,7 +61,14 @@ function ListPage(props) {
 
 					<Grid item className={classes.right}>
 						<Paper elevation={0}>
-							{loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
+							{loading ? <ProductSkeletonList length={9} /> : <ProductList data={productList} />}
+							<Pagination
+								className={classes.pagination}
+								color="primary"
+								count={Math.ceil(pagination.total / pagination.limit)}
+								page={pagination.page}
+								onChange={handlePageChange}
+							></Pagination>
 						</Paper>
 					</Grid>
 				</Grid>

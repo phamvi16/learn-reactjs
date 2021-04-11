@@ -8,16 +8,6 @@ import ListPage from './features/Product/pages/ListPage';
 import Header from './components/Header';
 import productApi from './api/productApi';
 function App() {
-	useEffect(() => {
-		const fetchProducts = async () => {
-			const params = {
-				_limit: 10,
-			};
-			const productList = await productApi.getAll(params);
-			console.log(productList);
-		};
-		fetchProducts();
-	}, []);
 	return (
 		<div>
 			<Switch>
