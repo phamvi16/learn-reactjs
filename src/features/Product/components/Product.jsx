@@ -10,7 +10,7 @@ function Product({ product }) {
 	const thumbnail = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACEHOLDER;
 	return (
 		<Box padding={1}>
-			<Box padding={1}>
+			<Box padding={1} minHeight="215px">
 				<img
 					// src="https://api.ezfrontend.com/uploads/9ff7d29c2ebad4fd802685eb770d9452_417240087a.jpg"
 					src={thumbnail}
