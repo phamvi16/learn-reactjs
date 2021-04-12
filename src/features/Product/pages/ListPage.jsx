@@ -36,7 +36,7 @@ function ListPage(props) {
 	});
 	const [loading, setLoading] = useState(true);
 	const [filters, setFilters] = useState({
-		_page: 10,
+		_page: 1,
 		_limit: 9,
 		_sort: 'salePrice:ASC',
 	});
