@@ -18,9 +18,13 @@ function ProductFilters({ filters, onChange }) {
 		};
 		onChange(newFilters);
 	};
-	return (
+	const handlePriceChange = (values) => {
+		console.log(values);
+	}
+	return ( 
 		<Box>
 			<FilterByCategory onChange={handleCategoryChange} />
+			<FilterByPrice onChange={handlePriceChange}/>
 		</Box>
 	);
 }
